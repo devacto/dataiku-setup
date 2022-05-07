@@ -57,7 +57,7 @@ then
     echo "Directory $DATA_DIR exists. Removing."
     rm -r $DATA_DIR
 else
-    echo "Directory $DATA_DIR does not exists."
+    echo "Directory $DATA_DIR does not exist."
 fi
 
 # Check if DSS directory exists
@@ -66,7 +66,7 @@ then
     echo "Directory $INSTALLER_NAME exists. Removing."
     rm -r $INSTALLER_NAME
 else
-    echo "Directory $INSTALLER_NAME does not exists."
+    echo "Directory $INSTALLER_NAME does not exist."
 fi
 
 # Check if DSS installer file exists
@@ -75,7 +75,7 @@ then
     echo "File $INSTALLER_NAME.tar.gz exists. Removing."
     rm -r $INSTALLER_NAME.tar.gz
 else
-    echo "Directory $INSTALLER_NAME does not exists."
+    echo "Directory $INSTALLER_NAME does not exist."
 fi
 
 wget https://cdn.downloads.dataiku.com/public/dss/$VERSION/$INSTALLER_NAME.tar.gz
@@ -85,4 +85,7 @@ tar xzf $INSTALLER_NAME.tar.gz
 # Install Dataiku DSS
 $INSTALLER_NAME/installer.sh -y -d $DATA_DIR -p $PORT -l license.json
 
-$DATA_DIR/bin/start
+$DATA_DIR/bin/dss start
+
+sudo -i "/home/demouser/$INSTALLER_NAME/scripts/install/install-boot.sh" \
+  "/home/demouser/$DATA_DIR" demouser
