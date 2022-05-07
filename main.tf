@@ -29,6 +29,11 @@ resource "google_compute_instance" "dss_design_node" {
     }
   }
 
+  service_account {
+    email  = google_service_account.dss_controller.email
+    scopes = ["cloud-platform"]
+  }
+
   provisioner "file" {
     source = "license.json"
     destination = "/home/demouser/license.json"
