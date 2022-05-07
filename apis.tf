@@ -1,6 +1,7 @@
 locals {
   apis = toset(["compute.googleapis.com",
-                "containerregistry.googleapis.com"])
+                "containerregistry.googleapis.com",
+                "container.googleapis.com"])
 }
 
 # Activate GCP Compute Engine API

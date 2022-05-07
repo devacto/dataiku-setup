@@ -3,6 +3,7 @@ locals {
     "roles/iam.serviceAccountUser",
     "roles/storage.admin",
     "roles/container.admin",
+    "roles/viewer",
   ]
 }
 
