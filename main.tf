@@ -71,15 +71,13 @@ resource "google_compute_instance" "dss_design_node" {
   metadata = {
     ssh-keys = "demouser:${tls_private_key.ssh.public_key_openssh}"
   }
+
   boot_disk {
     initialize_params {
       size  = 50
       image = "centos-cloud/centos-7"
     }
   }
-
-  # Startup script to install DSS
-  metadata_startup_script = file("${path.module}/startup.sh")
 
   network_interface {
     network = google_compute_network.dss_vpc.name
@@ -88,6 +86,46 @@ resource "google_compute_instance" "dss_design_node" {
       nat_ip = google_compute_address.dss_design_node_static_ip.address
     }
   }
+
+  provisioner "file" {
+    source = "license.json"
+    destination = "/home/demouser/license.json"
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+  provisioner "file" {
+    source = "install.sh"
+    destination = "/home/demouser/install.sh"
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/demouser/install.sh",
+      "cd /home/demouser",
+      "./install.sh"
+    ]
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+}
+
+output "public_ip" {
+  value = google_compute_address.dss_design_node_static_ip.address
 }
 
 resource "google_compute_firewall" "allow_ssh" {
@@ -101,8 +139,13 @@ resource "google_compute_firewall" "allow_ssh" {
   source_ranges = ["${var.ssh_ip}/32"]
 }
 
-output "public_ip" {
-  value = google_compute_address.dss_design_node_static_ip.address
+resource "google_compute_firewall" "allow_http" {
+  name = "${local.design_node_name}-web"
+  network = google_compute_network.dss_vpc.name
+  allow {
+    protocol = "tcp"
+    ports = ["10000"]
+  }
+  target_tags = ["${local.design_node_name}"]
+  source_ranges = ["0.0.0.0/0"]
 }
-
-# Put Dataiku license file
