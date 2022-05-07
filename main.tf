@@ -69,6 +69,56 @@ resource "google_compute_instance" "dss_design_node" {
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
+
+  provisioner "file" {
+    source = "install_docker.sh"
+    destination = "/home/demouser/install_docker.sh"
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/demouser/install_docker.sh",
+      "cd /home/demouser",
+      "./install_docker.sh"
+    ]
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+  provisioner "file" {
+    source = "install_kubectl.sh"
+    destination = "/home/demouser/install_kubectl.sh"
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/demouser/install_kubectl.sh",
+      "cd /home/demouser",
+      "./install_kubectl.sh"
+    ]
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
 }
 
 output "public_ip" {

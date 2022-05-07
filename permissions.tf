@@ -1,6 +1,8 @@
 locals {
   dss_controller_permissions = [
+    "roles/iam.serviceAccountUser",
     "roles/storage.admin",
+    "roles/container.admin",
   ]
 }
 
