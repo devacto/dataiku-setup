@@ -52,4 +52,6 @@ done
 
 sudo systemctl start docker
 
+sudo chmod 666 /var/run/docker.sock
+
 gcloud auth configure-docker -q
