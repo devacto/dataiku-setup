@@ -35,19 +35,8 @@ resource "google_compute_instance" "dss_design_node" {
   }
 
   provisioner "file" {
-    source = "license.json"
-    destination = "/home/demouser/license.json"
-    connection {
-      host = google_compute_address.dss_design_node_static_ip.address
-      type = "ssh"
-      user = "demouser"
-      private_key = tls_private_key.ssh.private_key_pem
-    }
-  }
-
-  provisioner "file" {
-    source = "install.sh"
-    destination = "/home/demouser/install.sh"
+    source = "install_packages.sh"
+    destination = "/home/demouser/install_packages.sh"
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
@@ -58,9 +47,34 @@ resource "google_compute_instance" "dss_design_node" {
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /home/demouser/install.sh",
+      "chmod +x /home/demouser/install_packages.sh",
       "cd /home/demouser",
-      "./install.sh"
+      "./install_packages.sh"
+    ]
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+  provisioner "file" {
+    source = "install_conda.sh"
+    destination = "/home/demouser/install_conda.sh"
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/demouser/install_conda.sh",
+      "cd /home/demouser",
+      "./install_conda.sh"
     ]
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
@@ -111,6 +125,42 @@ resource "google_compute_instance" "dss_design_node" {
       "chmod +x /home/demouser/install_kubectl.sh",
       "cd /home/demouser",
       "./install_kubectl.sh"
+    ]
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+    provisioner "file" {
+    source = "license.json"
+    destination = "/home/demouser/license.json"
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+  provisioner "file" {
+    source = "install_dss.sh"
+    destination = "/home/demouser/install_dss.sh"
+    connection {
+      host = google_compute_address.dss_design_node_static_ip.address
+      type = "ssh"
+      user = "demouser"
+      private_key = tls_private_key.ssh.private_key_pem
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/demouser/install_dss.sh",
+      "cd /home/demouser",
+      "./install_dss.sh"
     ]
     connection {
       host = google_compute_address.dss_design_node_static_ip.address

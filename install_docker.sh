@@ -51,3 +51,5 @@ do
 done
 
 sudo systemctl start docker
+
+gcloud auth configure-docker -q
