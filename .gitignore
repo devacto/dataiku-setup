@@ -27,3 +27,12 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+
+# Do not push ssh public key
+.ssh
+
+# Do not push license key
+license.json
+
+# Do not push VS Code configuration
+.vscode
