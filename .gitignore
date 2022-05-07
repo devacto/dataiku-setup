@@ -36,3 +36,6 @@ license.json
 
 # Do not push VS Code configuration
 .vscode
+
+# Do not push Service Account key
+sa_key.json

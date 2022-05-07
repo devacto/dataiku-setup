@@ -17,3 +17,12 @@ resource "google_project_iam_member" "dss_controller_permission" {
   member  = "serviceAccount:${google_service_account.dss_controller.email}"
   role    = each.key
 }
+
+resource "google_service_account_key" "dss_controller" {
+  service_account_id = "${google_service_account.dss_controller.name}"
+}
+
+resource "local_file" "dss_controller_sa_key" {
+  filename = "sa_key.json"
+  content  = "${base64decode(google_service_account_key.dss_controller.private_key)}"
+}
