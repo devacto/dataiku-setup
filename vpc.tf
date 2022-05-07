@@ -29,3 +29,14 @@ resource "google_compute_firewall" "allow_http" {
   target_tags = ["${local.design_node_name}"]
   source_ranges = ["0.0.0.0/0"]
 }
+
+resource "google_compute_firewall" "allow_internal_comms" {
+  name = "${local.design_node_name}-internal"
+  network = google_compute_network.dss_vpc.name
+  allow {
+    protocol = "tcp"
+    ports = ["1-65535"]
+  }
+  target_tags = ["${local.design_node_name}"]
+  source_ranges = ["10.128.0.0/9"]
+}
