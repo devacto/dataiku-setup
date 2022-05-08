@@ -38,5 +38,5 @@ resource "google_compute_firewall" "allow_internal_comms" {
     ports = ["1-65535"]
   }
   target_tags = ["${local.design_node_name}"]
-  source_ranges = ["10.20.0.0/14"]
+  source_ranges = ["10.64.0.0/14"]
 }
