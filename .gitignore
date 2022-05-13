@@ -39,3 +39,6 @@ license.json
 
 # Do not push Service Account key
 sa_key.json
+
+# Do not push SSL Cert
+ssl-cert
