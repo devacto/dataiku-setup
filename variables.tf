@@ -6,6 +6,6 @@ variable "project_id" {
 
 variable "ssh_ip" {
   type        = string
-  default     = "165.173.18.24"
+  default     = "114.129.19.115"
   description = "IP allowed to SSH."
 }
