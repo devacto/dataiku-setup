@@ -19,16 +19,27 @@ resource "google_compute_firewall" "allow_ssh" {
   source_ranges = ["${var.ssh_ip}/32"]
 }
 
-resource "google_compute_firewall" "allow_http" {
-  name = "${local.design_node_name}-web"
+resource "google_compute_firewall" "allow_https" {
+  name = "${local.design_node_name}-https"
   network = google_compute_network.dss_vpc.name
   allow {
     protocol = "tcp"
-    ports = ["10000"]
+    ports = ["443"]
   }
   target_tags = ["${local.design_node_name}"]
   source_ranges = ["0.0.0.0/0"]
 }
+
+# resource "google_compute_firewall" "allow_http" {
+#   name = "${local.design_node_name}-web"
+#   network = google_compute_network.dss_vpc.name
+#   allow {
+#     protocol = "tcp"
+#     ports = ["10000"]
+#   }
+#   target_tags = ["${local.design_node_name}"]
+#   source_ranges = ["0.0.0.0/0"]
+# }
 
 resource "google_compute_firewall" "allow_internal_comms" {
   name = "${local.design_node_name}-internal"
