@@ -11,7 +11,7 @@ resource "google_compute_instance" "dss_design_node" {
   tags         = ["${local.design_node_name}"]
 
   metadata = {
-    ssh-keys = "demouser:${tls_private_key.ssh.public_key_openssh}"
+    ssh-keys = "centos:${tls_private_key.ssh.public_key_openssh}"
   }
 
   boot_disk {
@@ -36,136 +36,136 @@ resource "google_compute_instance" "dss_design_node" {
 
   provisioner "file" {
     source = "install_packages.sh"
-    destination = "/home/demouser/install_packages.sh"
+    destination = "/home/centos/install_packages.sh"
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /home/demouser/install_packages.sh",
-      "cd /home/demouser",
+      "chmod +x /home/centos/install_packages.sh",
+      "cd /home/centos",
       "./install_packages.sh"
     ]
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
   provisioner "file" {
     source = "install_conda.sh"
-    destination = "/home/demouser/install_conda.sh"
+    destination = "/home/centos/install_conda.sh"
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /home/demouser/install_conda.sh",
-      "cd /home/demouser",
+      "chmod +x /home/centos/install_conda.sh",
+      "cd /home/centos",
       "./install_conda.sh"
     ]
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
   provisioner "file" {
     source = "install_docker.sh"
-    destination = "/home/demouser/install_docker.sh"
+    destination = "/home/centos/install_docker.sh"
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /home/demouser/install_docker.sh",
-      "cd /home/demouser",
+      "chmod +x /home/centos/install_docker.sh",
+      "cd /home/centos",
       "./install_docker.sh"
     ]
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
   provisioner "file" {
     source = "install_kubectl.sh"
-    destination = "/home/demouser/install_kubectl.sh"
+    destination = "/home/centos/install_kubectl.sh"
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /home/demouser/install_kubectl.sh",
-      "cd /home/demouser",
+      "chmod +x /home/centos/install_kubectl.sh",
+      "cd /home/centos",
       "./install_kubectl.sh"
     ]
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
     provisioner "file" {
     source = "license.json"
-    destination = "/home/demouser/license.json"
+    destination = "/home/centos/license.json"
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
   provisioner "file" {
     source = "install_dss.sh"
-    destination = "/home/demouser/install_dss.sh"
+    destination = "/home/centos/install_dss.sh"
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /home/demouser/install_dss.sh",
-      "cd /home/demouser",
+      "chmod +x /home/centos/install_dss.sh",
+      "cd /home/centos",
       "./install_dss.sh"
     ]
     connection {
       host = google_compute_address.dss_design_node_static_ip.address
       type = "ssh"
-      user = "demouser"
+      user = "centos"
       private_key = tls_private_key.ssh.private_key_pem
     }
   }

@@ -1,6 +1,6 @@
 resource "google_storage_bucket" "dss_datasets" {
   project = var.project_id
-  name    = "${var.project_id}-datasets"
+  name    = "dss-datasets"
 
   location                    = "ASIA-SOUTHEAST1"
   storage_class               = "STANDARD"

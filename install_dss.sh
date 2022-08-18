@@ -2,7 +2,7 @@
 
 set -ex
 
-cd /home/demouser
+cd /home/centos
 
 export VERSION=10.0.5
 export INSTALLER_NAME=dataiku-dss-$VERSION
@@ -45,5 +45,5 @@ $INSTALLER_NAME/installer.sh -y -d $DATA_DIR -p $PORT -l license.json
 
 $DATA_DIR/bin/dss start
 
-sudo -i "/home/demouser/$INSTALLER_NAME/scripts/install/install-boot.sh" \
-  "/home/demouser/$DATA_DIR" demouser
+sudo -i "/home/centos/$INSTALLER_NAME/scripts/install/install-boot.sh" \
+  "/home/centos/$DATA_DIR" centos

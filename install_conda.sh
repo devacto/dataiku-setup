@@ -21,8 +21,8 @@ chmod +x ~/anaconda.sh
 
 ~/anaconda.sh -b -p $HOME/anaconda
 
-cat <<EOF | tee -a /home/demouser/.bashrc
-export PATH="/home/demouser/anaconda/bin:$PATH"
+cat <<EOF | tee -a /home/centos/.bashrc
+export PATH="/home/centos/anaconda/bin:$PATH"
 EOF
 
 source ~/.bashrc
