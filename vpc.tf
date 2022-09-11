@@ -30,17 +30,6 @@ resource "google_compute_firewall" "allow_https" {
   source_ranges = ["0.0.0.0/0"]
 }
 
-# resource "google_compute_firewall" "allow_http" {
-#   name = "${local.design_node_name}-web"
-#   network = google_compute_network.dss_vpc.name
-#   allow {
-#     protocol = "tcp"
-#     ports = ["10000"]
-#   }
-#   target_tags = ["${local.design_node_name}"]
-#   source_ranges = ["0.0.0.0/0"]
-# }
-
 resource "google_compute_firewall" "allow_internal_comms" {
   name = "${local.design_node_name}-internal"
   network = google_compute_network.dss_vpc.name
